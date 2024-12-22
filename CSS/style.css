@@ -38,6 +38,10 @@ nav {
     display: flex;
     align-items: center;
 }
+
+.logo-img {
+    height: 20px;
+}
   
 .nav-links {
     list-style-type: none;
