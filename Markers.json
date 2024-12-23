@@ -1,0 +1,42 @@
+{
+    "markers": [
+        {
+            "type": "Marker",
+            "Name": "Atlantis",
+            "tags": {
+                "series":"",
+                "color": "green"
+            },
+            "cords": {
+                "lat": "6.615803909622372",
+                "lon": "21.546511518796933"
+            },
+            "description": "The lost city beneath the ocean."
+        },
+        {
+            "type": "Marker",
+            "Name": "Dance",
+            "tags": {
+                "series":"",
+                "color": "red"
+            },
+            "cords": {
+                "lat": "6.615803909622372",
+                "lon": "50.546511518796933"
+            },
+            "description": "The lost city beneath the ocean."
+        },
+        {
+            "type": "Marker",
+            "Name": "Hogwarts",
+            "tags": {
+                "series":""
+            },
+            "cords": {
+                "lat": "6.615803909622372",
+                "lon": "-60.123"
+            },
+            "description": "The magical school of witchcraft and wizardry."
+        }
+    ]
+}
