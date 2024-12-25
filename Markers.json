@@ -2,41 +2,66 @@
     "markers": [
         {
             "type": "Marker",
-            "Name": "Atlantis",
+            "Name": "Empire State Building",
             "tags": {
-                "series":"",
-                "color": "green"
+                "series":"Percy Jackson",
+                "universe":"",
+                "author":""
             },
+            "collections": [
+
+            ],
             "cords": {
                 "lat": "6.615803909622372",
                 "lon": "21.546511518796933"
             },
-            "description": "The lost city beneath the ocean."
+            "address": "",
+            "description": "The lost city beneath the ocean.",
+            "images": [
+                "https://lh5.googleusercontent.com/p/AF1QipMnGg2AimiTgzaRgCWzYudpdA2Wen7AFk65YVrH=w408-h268-k-no"
+            ]
         },
         {
             "type": "Marker",
             "Name": "Dance",
             "tags": {
                 "series":"",
-                "color": "red"
+                "universe":"",
+                "author":""
             },
+            "collections": [
+
+            ],
             "cords": {
                 "lat": "6.615803909622372",
                 "lon": "50.546511518796933"
             },
-            "description": "The lost city beneath the ocean."
+            "address": "",
+            "description": "The lost city beneath the ocean.",
+            "images": [
+                
+            ]
         },
         {
             "type": "Marker",
             "Name": "Hogwarts",
             "tags": {
-                "series":""
+                "series":"Harry Potter",
+                "universe":"",
+                "author":""
             },
+            "collections": [
+
+            ],
             "cords": {
                 "lat": "6.615803909622372",
                 "lon": "-60.123"
             },
-            "description": "The magical school of witchcraft and wizardry."
+            "address": "",
+            "description": "The magical school of witchcraft and wizardry.",
+            "images": [
+                
+            ]
         }
     ]
 }

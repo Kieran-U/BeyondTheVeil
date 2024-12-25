@@ -1,19 +1,89 @@
-* {
-    border-radius: 0% !important;
-}
-
 body, head {
     width: 100%;
-    border-radius: 0% !important;
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
 }
 
+#LocationSlab {
+    position: absolute;
+    top: 10vh;
+    left: 1vh;
+    border-radius: 5%;
+    padding: 0;
+    width: 25vw; /* 25% of the screen width for the menu */
+    height: 86vh;
+    background-color: #f4f4f4;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+    border: 2px solid rgb(176, 174, 174);
+    display: none; /* invisible by deafult*/
+    z-index: 9999;
+  }
+
+.LS-img {
+    margin: 2%;
+    border-radius: 5%;
+    display: flex; /* Use Flexbox to arrange images horizontally */
+    overflow-x: auto; /* Allows horizontal scrolling */
+    scroll-snap-type: x mandatory; /* Ensures smooth snapping between images while scrolling */
+    -webkit-overflow-scrolling: touch;
+}
+
+.LS-img img {
+    width: 100%; /* Image takes up full width */
+    flex-shrink: 0; 
+    height: auto;
+    max-height: calc(25vw * 0.5);
+    object-fit: cover;
+    transition: transform 0.3s ease; /* Ensures image fills the space without stretching */
+}
+
+#LocationSlab h2 {
+    margin: 2%;
+}
+
+#LocationSlab p {
+    margin: 2%;
+}
+
+.tag {
+    display: inline-block;
+    margin: 5px;
+    padding: 5px 10px;
+    background-color: #f0f0f0; /* Default background */
+    border-radius: 15px; /* Rounded corners */
+    font-size: 14px;
+    color: #333;
+    border: 1px solid #ccc;
+}
+
+/* Specific style for tags */
+.Percy_Jackson {
+    background-color: #FF5722;
+    color: white;
+}
+
 #map {
     height: 90vh;
-    border-radius: 0% !important;
     width: 100%;
+}
+
+.NB-Tool-Tip {
+    background-color: transparent;
+    border: none;
+    color: black;
+    font-weight: bold;
+    font-size: 14px;
+    padding: 0;
+    box-shadow: none;
+}
+
+.leaflet-tooltip-top:before, 
+.leaflet-tooltip-bottom:before, 
+.leaflet-tooltip-left:before, 
+.leaflet-tooltip-right:before {
+    border: none !important;
 }
 
 #footer {
