@@ -1,4 +1,4 @@
-var map = L.map('map', {zoomControl: false}).setView([51.505, -0.09], 13);
+var map = L.map('map', {zoomControl: false, zoomAnimation: false}).setView([20, 15], 3);
 
 var osm = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     minZoom: 3,
@@ -7,13 +7,32 @@ var osm = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 });
 
 var watercolor = L.tileLayer('https://tiles.stadiamaps.com/tiles/stamen_watercolor/{z}/{x}/{y}.{ext}', {
-	minZoom: 1,
-	maxZoom: 16,
+	minZoom: 3,
+    maxZoom: 19,
 	attribution: '&copy; <a href="https://www.stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://www.stamen.com/" target="_blank">Stamen Design</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
 	ext: 'jpg'
 });
 
-osm.addTo(map);
+var cat = L.tileLayer('https://tile.openstreetmap.bzh/ca/{z}/{x}/{y}.png', {
+	minZoom: 3,
+    maxZoom: 19,
+	attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Tiles courtesy of <a href="https://www.openstreetmap.cat" target="_blank">Breton OpenStreetMap Team</a>'
+});
+
+cat.addTo(map);
+
+var maxBounds = L.latLngBounds(
+    L.latLng(90, -175),  // Northwest corner (lat, lon) 
+    L.latLng(-90, 190)   // Southeast corner (lat, lon)
+);
+
+// Apply the bounds to the map
+map.setMaxBounds(maxBounds);
+
+var markers = L.markerClusterGroup({
+    maxClusterRadius: 60,
+    showCoverageOnHover: false
+});
 
 fetch("Markers.json")
             .then(response => response.json())
@@ -48,7 +67,7 @@ fetch("Markers.json")
                         });
                     }
                     
-                    const marker = L.marker([lat, lon], { icon: icon }).addTo(map);
+                    const marker = L.marker([lat, lon], { icon: icon });
 
                     //Label for marker
                     marker.bindTooltip(markerData.Name, {
@@ -56,21 +75,26 @@ fetch("Markers.json")
                         direction: "top",  // Position the label above the marker
                         offset: L.point(0, -35),  // Adjust the label's position (10 pixels above the marker)
                         className: "NB-Tool-Tip" // For css style No-Box
-                      }).openTooltip();
+                    }).openTooltip();
 
-                      //Event Listener Click on Marker
-                      marker.on('click', function() {
+                    //Event Listener Click on Marker
+                    marker.on('click', function() {
                         updateLocationSlab(markerData); // Update the left menu with the marker's info
-                      });
+                    });
+
+                    markers.addLayer(marker);
                 });
             })
             .catch(error => console.error('Error loading the JSON file:', error));
+
+map.addLayer(markers);
 
 map.on('click', function() {
     hideLocationSlab(); // Hide the menu if user clicks somewhere on the map
 });
 
 function updateLocationSlab(marker) {
+    markers.refreshClusters();
     var LS = document.getElementById('LocationSlab');
     LS.innerHTML = `
         <div class="LS-img">${marker.images.map(image => `<img src="${image}" alt="Image">`).join('')}</div>
