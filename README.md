@@ -1,1 +1,2 @@
-123
+- Better font
+- Proper validation of suggestions. Must select series / creator. Must choose map location or cords. 
