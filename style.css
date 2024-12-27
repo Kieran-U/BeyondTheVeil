@@ -1,6 +1,6 @@
 /*
 Styles for main page Index.html
-By Kieran Upton
+By Kieran U
 */
 
 body, head {
@@ -43,7 +43,7 @@ body, head {
     height: auto;
     max-height: calc(25vw * 0.5);
     object-fit: cover;
-    transition: transform 0.3s ease; /* Loading */
+    transition: transform 0.3s ease;
 }
 
 #LocationSlab h2 {
@@ -195,23 +195,66 @@ nav {
     background-color: #333;
     display: flex;
     align-items: center;
-    justify-content: middle;
 }
 
-.logo-img {
-    height: 20px;
-}
-  
 .nav-links {
+    width: 100%;
     list-style-type: none;
     margin: 0;
     padding: 0;
-    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
   }
-  
-.nav-links li {
-    float: left;
-  }
+
+.right-section {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.left-section {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+#searchInput {
+    font-size: 17px;
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+    margin-right: 15px;
+    margin-top: 11px;
+    height: 35px;
+    width: 22vw;
+    border-radius: 4px;
+    line-height: 1;
+}
+
+.logo-img {
+    margin-top: 18px;
+    max-height: 100px;
+}
+
+#randomBtn {
+    padding: 0;
+    padding-left: 2px;
+    padding-right: 2px;
+}
+
+#searchBtn {
+    padding: 0;
+}
+
+#searchBtn-img {
+    max-height: 35px;
+}
+
+#randomBtn-img {
+    max-height: 35px;
+}
   
 .nav-links li a {
     display: block;

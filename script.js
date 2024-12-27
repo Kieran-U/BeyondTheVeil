@@ -1,10 +1,9 @@
 /* Scripts for main page Index.html
 Links to Markers.json which stores marker data
-By Kieran Upton
+By Kieran U
 */
 
 // Map Setup
-
 var map = L.map('map', {zoomControl: false}).setView([20, 15], 3);
 
 //Open Street Map Style
@@ -21,7 +20,6 @@ var watercolor = L.tileLayer('https://tiles.stadiamaps.com/tiles/stamen_watercol
 	attribution: '&copy; <a href="https://www.stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://www.stamen.com/" target="_blank">Stamen Design</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
 	ext: 'jpg'
 });
-
 
 //Open Street Maps Cat Style
 var cat = L.tileLayer('https://tile.openstreetmap.bzh/ca/{z}/{x}/{y}.png', {
@@ -41,11 +39,12 @@ var maxBounds = L.latLngBounds(
 map.setMaxBounds(maxBounds);
 
 // Create Markers On Map
-
 var markers = L.markerClusterGroup({
     maxClusterRadius: 70,
     showCoverageOnHover: false
 });
+
+var markerDataArray = [];
 
 //Get marker data from json file and create markers
 fetch("Markers.json")
@@ -83,6 +82,12 @@ fetch("Markers.json")
                 
         //create marker, bind icon
         const marker = L.marker([lat, lon], { icon: icon });
+
+        // Add marker to the array for future use
+        markerDataArray.push({
+            marker: marker,
+            name: markerData.Name
+        });
 
         //Label for marker
         marker.bindTooltip(markerData.Name, {
@@ -133,18 +138,6 @@ map.on('click', function(e) {
     }
 });
 
-function updateMarkerPosition() {
-    const lat = parseFloat(document.getElementById('latitude').value);
-    const lng = parseFloat(document.getElementById('longitude').value);
-
-    // Check if both latitude and longitude are valid numbers
-    if (!isNaN(lat) && !isNaN(lng)) {
-        // Update marker position
-        suggestMarker.setLatLng([lat, lng]);
-        map.panTo([lat, lng]);  // Optionally, center the map to the new marker position
-    }
-}
-
 //Event Listener Setup (Click on Navbar suggest location button)
 document.getElementById('suggestLocationBtn').addEventListener('click', function (){
     var suggestLocationBtn = document.getElementById('suggestLocationBtn');
@@ -159,40 +152,56 @@ document.getElementById('suggestLocationBtn').addEventListener('click', function
     }
 });
 
-//De-activate Suggest location button
-function daSuggestLocationBtn() {
-    var suggestLocationBtn = document.getElementById('suggestLocationBtn');
-    suggestLocationBtn.classList.remove('active');
+//Event Listener Setup (Random Location Button)
+document.getElementById('randomBtn').addEventListener('click', function() {
+    randomLocation();
+});
+
+//Hover Effect for Random Button in Navbar
+const image = document.getElementById('randomBtn-img');
+image.addEventListener('mouseover', function() {
+    image.src = 'Assets/Images/rand-gold.png';
+});
+image.addEventListener('mouseout', function() {
+    image.src = 'Assets/Images/rand-white.png';
+});
+
+//Zoom to Random Location function
+function randomLocation() {
+    var randomIndex = Math.floor(Math.random() * markerDataArray.length);
+    map.setView(markerDataArray[randomIndex].marker.getLatLng(), 13);
 }
 
-//Update left-side menu with location info
-function updateLocationSlab(marker) {
-    var suggestLocationBtn = document.getElementById('suggestLocationBtn');
-    if (!suggestLocationBtn.classList.contains('active')) {
-        markers.refreshClusters();
-        var LS = document.getElementById('LocationSlab');
-        LS.innerHTML = `
-            <div class="LS-img">${marker.images.map(image => `<img src="${image}" alt="Image">`).join('')}</div>
-            <h2>${marker.Name}</h2>
-            <div class="tags">${Object.values(marker.tags).map(tagValue => {
-                // Replace spaces with underscores in the tag value
-                const tagClass = tagValue.replace(/\s+/g, '_'); 
-                return tagValue ? `<span class="tag ${tagClass}">${tagValue}</span>` : '';
-            }).join('')}</div>
-            <p>${marker.description}</p>
-        `;
-        LS.style.display = 'block';
+//Event Listener Setup (Navbar Search Button)
+document.getElementById('searchBtn').addEventListener('click', function() {
+    var searchContainer = document.getElementById('searchContainer');
+    if (searchContainer.style.display === 'none' || searchContainer.style.display === '') {
+        searchContainer.style.display = 'block'; 
+        document.getElementById('searchInput').focus();
+    } else {
+        searchContainer.style.display = 'none';
     }
-}
+});
 
-//hide left-side menu
-function hideLocationSlab() {
-    var suggestLocationBtn = document.getElementById('suggestLocationBtn');
-    if (!suggestLocationBtn.classList.contains('active')) {
-        var LS = document.getElementById('LocationSlab');
-        LS.style.display = 'none'; // Hide the menu when no marker is clicked
-        daSuggestLocationBtn();
+// Handle input events in the search field
+document.getElementById('searchInput').addEventListener('input', function(e) {
+    var query = e.target.value.trim();
+
+    //update when more than 3 letters typed
+    if (query.length >= 3) {
+        searchLocation(query);
     }
+});
+
+//Search and Zoom function
+function searchLocation(query) {
+    var results = markerDataArray.filter(function(item) {
+        return item.name.toLowerCase().includes(query.toLowerCase());
+    });
+
+    results.forEach(function(item) {
+        map.setView(item.marker.getLatLng(), 13);  // Zoom to the matched location
+    });
 }
 
 //Suggest a location form
@@ -361,4 +370,50 @@ function displaySuggestionForm() {
         LS.style.display = 'none';
         suggestMarker.setOpacity(0);
     });
+}
+
+function updateMarkerPosition() {
+    const lat = parseFloat(document.getElementById('latitude').value);
+    const lng = parseFloat(document.getElementById('longitude').value);
+    
+    if (!isNaN(lat) && !isNaN(lng)) {
+        suggestMarker.setLatLng([lat, lng]);
+        map.panTo([lat, lng]);
+    }
+}
+
+//De-activate Suggest location button
+function daSuggestLocationBtn() {
+    var suggestLocationBtn = document.getElementById('suggestLocationBtn');
+    suggestLocationBtn.classList.remove('active');
+}
+
+//Update left-side menu with location info
+function updateLocationSlab(marker) {
+    var suggestLocationBtn = document.getElementById('suggestLocationBtn');
+    if (!suggestLocationBtn.classList.contains('active')) {
+        markers.refreshClusters();
+        var LS = document.getElementById('LocationSlab');
+        LS.innerHTML = `
+            <div class="LS-img">${marker.images.map(image => `<img src="${image}" alt="Image">`).join('')}</div>
+            <h2>${marker.Name}</h2>
+            <div class="tags">${Object.values(marker.tags).map(tagValue => {
+                // Replace spaces with underscores in the tag value
+                const tagClass = tagValue.replace(/\s+/g, '_'); 
+                return tagValue ? `<span class="tag ${tagClass}">${tagValue}</span>` : '';
+            }).join('')}</div>
+            <p>${marker.description}</p>
+        `;
+        LS.style.display = 'block';
+    }
+}
+
+//hide left-side menu
+function hideLocationSlab() {
+    var suggestLocationBtn = document.getElementById('suggestLocationBtn');
+    if (!suggestLocationBtn.classList.contains('active')) {
+        var LS = document.getElementById('LocationSlab');
+        LS.style.display = 'none'; // Hide the menu when no marker is clicked
+        daSuggestLocationBtn();
+    }
 }

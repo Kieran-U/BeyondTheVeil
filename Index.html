@@ -1,7 +1,7 @@
 <!-- 
 Main Page HTML
 Links to style.css & scipt.js & Leaflet Map + Plugin
-By Kieran Upton
+By Kieran U
 -->
 
 <!DOCTYPE html>
@@ -25,11 +25,18 @@ By Kieran Upton
 <body>
     <nav>
         <ul class="nav-links">
-            <li class="logo">
-                <a href="Index.html"><img src="Assets/Images/BeyondTheVeilLogo.png" alt="Logo" class="logo-img"></a>
+            <li class="left-section">
+                <a href="Index.html"><img src="Assets/Images/Logo.png" alt="Logo" class="logo-img"></a>
+                <a id="suggestLocationBtn" >Suggest a Location</a>
             </li>
-            <li><a href="Index.html">Home</a></li>
-            <li><a id="suggestLocationBtn" >Suggest a Location</a></li>
+
+            <li class="right-section">
+                <div id="searchContainer" style="display: none;">
+                    <input type="text" id="searchInput" placeholder="Search for a location">
+                </div>
+                <a id="searchBtn" ><img src="Assets/Images/search-white.png" alt="Search" id="searchBtn-img"></a>
+                <a id="randomBtn" ><img src="Assets/Images/rand-white.png" alt="Random" id="randomBtn-img"></a>
+            </li>
         </ul>
     </nav>
 
