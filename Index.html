@@ -1,3 +1,9 @@
+<!-- 
+Main Page HTML
+Links to style.css & scipt.js & Leaflet Map + Plugin
+By Kieran Upton
+-->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,13 +11,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Beyond The Veil</title>
 
-    <!-- Leaflet HTML -->
+    <!-- Leaflet HTML-->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
     
     <!-- Leaflet Marker Cluster Plugin-->
     <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.1.0/dist/MarkerCluster.css" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.1.0/dist/MarkerCluster.Default.css" />
 
+    <!-- Link To Custom Styles-->
     <link rel="stylesheet" href="style.css" />
     
 </head>
@@ -19,14 +26,14 @@
     <nav>
         <ul class="nav-links">
             <li class="logo">
-                <a href="/"><img src="Assets/Images/BeyondTheVeilLogo.png" alt="Logo" class="logo-img"></a>
+                <a href="Index.html"><img src="Assets/Images/BeyondTheVeilLogo.png" alt="Logo" class="logo-img"></a>
             </li>
-            <li><a href="/">Home</a></li>
-            <li><a href="/about">About</a></li>
-            <li><a href="/suggest">Suggest a Location</a></li>
+            <li><a href="Index.html">Home</a></li>
+            <li><a id="suggestLocationBtn" >Suggest a Location</a></li>
         </ul>
     </nav>
 
+    <!-- Left-Side Popup Menu-->
     <div id="LocationSlab"></div>
 
     <div id="map"></div>
@@ -41,6 +48,7 @@
     <!-- Leaflet Marker Cluster Plugin-->
     <script src="https://unpkg.com/leaflet.markercluster@1.1.0/dist/leaflet.markercluster.js"></script>
 
+    <!-- Link To Custom Script-->
     <script src="script.js"></script>
 
 </body>
