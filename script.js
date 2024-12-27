@@ -259,7 +259,7 @@ function displaySuggestionForm() {
     async function SuggestFormDropDownData() {
         try {
             // Fetch the JSON file with the data
-            const response = await fetch('info.json');
+            const response = await fetch('Info.json');
             const data = await response.json();
     
             // Get the select elements for authors and series
@@ -332,7 +332,13 @@ function displaySuggestionForm() {
         const address = document.getElementById('address').value;
         const source = document.getElementById('source').value;
         const series = document.getElementById('series').value;
+        if (series == 'other') {
+            const series = document.getElementById('newseries').value;
+        }
         const creator = document.getElementById('author').value;
+        if (creator == 'other') {
+            const series = document.getElementById('newauthor').value;
+        }
         const images = document.getElementById('images').value.split(',').map(image => image.trim());
         const latLng = suggestMarker.getLatLng();
         const lat = latLng.lat;
