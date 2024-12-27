@@ -1,42 +1,49 @@
+/*
+Styles for main page Index.html
+By Kieran Upton
+*/
+
 body, head {
     width: 100%;
-    font-family: Arial, sans-serif;
+    font-family: Arial, sans-serif; /* TO BE CHANGED - To smt cooler! */
     margin: 0;
     padding: 0;
 }
 
+/* Left-Side Popup Menu, For suggestions and location info */
 #LocationSlab {
     position: absolute;
     top: 10vh;
     left: 1vh;
-    border-radius: 5%;
+    border-radius: 8px;
     padding: 0;
-    width: 25vw; /* 25% of the screen width for the menu */
+    width: 25vw;
     height: 86vh;
-    background-color: #f4f4f4;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
     overflow-y: auto;
-    border: 2px solid rgb(176, 174, 174);
-    display: none; /* invisible by deafult*/
+    border: 2px solid #333;
+    display: none;
     z-index: 9999;
   }
 
 .LS-img {
     margin: 2%;
-    border-radius: 5%;
-    display: flex; /* Use Flexbox to arrange images horizontally */
-    overflow-x: auto; /* Allows horizontal scrolling */
-    scroll-snap-type: x mandatory; /* Ensures smooth snapping between images while scrolling */
+    border-radius: 8px;
+
+    /* For Multi-image gallary - Not currently used */
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
 }
 
 .LS-img img {
-    width: 100%; /* Image takes up full width */
+    width: 100%;
     flex-shrink: 0; 
     height: auto;
     max-height: calc(25vw * 0.5);
     object-fit: cover;
-    transition: transform 0.3s ease; /* Ensures image fills the space without stretching */
+    transition: transform 0.3s ease; /* Loading */
 }
 
 #LocationSlab h2 {
@@ -45,6 +52,85 @@ body, head {
 
 #LocationSlab p {
     margin: 2%;
+}
+
+#suggestionForm {
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 2%;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+#LocationSlab::-webkit-scrollbar {
+    width: 8px;
+}
+
+#LocationSlab::-webkit-scrollbar-track {
+    background: #ffffff;
+    border-radius: 10px;
+}
+
+#LocationSlab::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+    border: 2px solid #f1f1f1;
+}
+
+#LocationSlab::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+#LocationSlab::-webkit-scrollbar-button {
+    display: none;
+}
+
+label {
+    font-size: 14px;
+    font-weight: bold;
+    color: #555;
+    margin-bottom: 5px;
+    display: block;
+}
+
+input[type="text"], textarea, select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    margin-bottom: 15px;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+textarea {
+    resize: vertical;
+    height: 105px;
+}
+
+button[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    background-color: gold;
+    color: black;
+    border: none;
+    font-weight: bold;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button[type="submit"]:hover {
+    background-color: rgb(244, 207, 0);
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group:last-child {
+    margin-bottom: 0;
 }
 
 .tag {
@@ -64,6 +150,7 @@ body, head {
     color: white;
 }
 
+/* Leaflet Map setup */
 #map {
     height: 90vh;
     width: 100%;
@@ -86,6 +173,7 @@ body, head {
     border: none !important;
 }
 
+/* Footer */
 #footer {
     background-color: black;
     height: 2vh;
@@ -107,6 +195,7 @@ nav {
     background-color: #333;
     display: flex;
     align-items: center;
+    justify-content: middle;
 }
 
 .logo-img {
@@ -128,11 +217,22 @@ nav {
     display: block;
     color: white;
     text-align: center;
-    padding: 14px 16px;
+    padding: 1vh 1vw;
+    margin-right: 2vw;
+    border-radius: 8px;
     text-decoration: none;
     font-size: 120%;
   }
   
 .nav-links li a:hover {
     color: gold;
-  }
+}
+
+#suggestLocationBtn.active{
+    background-color: gold;
+    color: black;
+}
+
+#suggestLocationBtn.active:hover{
+    background-color: rgb(244, 207, 0);;
+}
