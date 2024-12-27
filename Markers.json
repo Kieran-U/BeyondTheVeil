@@ -5,12 +5,9 @@
             "Name": "Empire State Building",
             "tags": {
                 "series":"Percy Jackson",
-                "universe":"",
-                "author":""
+                "universe":""
             },
-            "collections": [
-
-            ],
+            "author":"",
             "cords": {
                 "lat": "6.615803909622372",
                 "lon": "21.546511518796933"
@@ -26,12 +23,9 @@
             "Name": "Santa Monica Beach",
             "tags": {
                 "series":"The Lightning Thief",
-                "universe":"Percy Jackson",
-                "author":"Rick Riordan"
+                "universe":"Percy Jackson"
             },
-            "collections": [
-
-            ],
+            "author":"Rick Riordan",
             "cords": {
                 "lat": "34.01715984",
                 "lon": "-118.5062599"
