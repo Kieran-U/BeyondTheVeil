@@ -5,7 +5,7 @@ By Kieran Upton
 
 // Map Setup
 
-var map = L.map('map', {zoomControl: false, zoomAnimation: false}).setView([20, 15], 3);
+var map = L.map('map', {zoomControl: false}).setView([20, 15], 3);
 
 //Open Street Map Style
 var osm = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -31,7 +31,7 @@ var cat = L.tileLayer('https://tile.openstreetmap.bzh/ca/{z}/{x}/{y}.png', {
 });
 
 //Add style to map
-cat.addTo(map);
+osm.addTo(map);
 
 // Apply the scroll bounds to the map
 var maxBounds = L.latLngBounds(
@@ -211,8 +211,11 @@ function displaySuggestionForm() {
             <label for="address">Address:</label>
             <input type="text" id="address" name="address" required>
 
+            <label for="source">Source:</label>
+            <input type="text" id="source" name="source" required>
+
             <label for="series">Series:</label>
-            <select id="series" name="series" required>
+            <select id="series" name="series">
             <option hidden disabled selected value></option>
                 <option value="other">Other...</option>
             </select>
@@ -314,7 +317,44 @@ function displaySuggestionForm() {
     document.getElementById('suggestionForm').addEventListener('submit', function(event) {
         event.preventDefault();
 
-        // TO BE UPDATED -JSON HANDLING
+        // Collect form data
+        const name = document.getElementById('name').value;
+        const description = document.getElementById('description').value;
+        const address = document.getElementById('address').value;
+        const source = document.getElementById('source').value;
+        const series = document.getElementById('series').value;
+        const creator = document.getElementById('author').value;
+        const images = document.getElementById('images').value.split(',').map(image => image.trim());
+        const latLng = suggestMarker.getLatLng();
+        const lat = latLng.lat;
+        const long = latLng.lng;
+        
+        // Map your form fields to Google Form field names
+        const formData = new URLSearchParams();
+        formData.append('name', name); // Replace entry.XXXXXX with your actual form field entry ID
+        formData.append('description', description); // Replace entry.YYYYYY with your actual form field entry ID
+        formData.append('address', address); // Replace entry.ZZZZZZ with your actual form field entry ID
+        formData.append('source', source);
+        formData.append('series', series);
+        formData.append('creator', creator);
+        formData.append('images', images.join(',')); // Replace entry.AAAAAA with your actual form field entry ID
+        formData.append('lat', lat);
+        formData.append('long', long);
+
+        //send data to google sheets (There are console errors being triggered CORS, however the data is successfully being sent)
+        //temparily ingoring issues, might look into moving to proper backend in the future, Firebase? MangoDB?
+        fetch('https://script.google.com/macros/s/AKfycbx24CyzFBNOSUNTQVCUA8zuH-tXl0Mi-Mt6aCwro77pBugl6EURl8mK1JrUTjye0I_2/exec', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.text()) // Text is returned from Apps Script
+        .then(result => {
+            alert('Form submitted successfully!');
+            //console.log(result); 
+        })
+        .catch(error => {
+           // console.error('Error:', error);
+        });
 
         //close form
         daSuggestLocationBtn();
