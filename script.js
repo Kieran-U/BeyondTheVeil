@@ -331,13 +331,13 @@ function displaySuggestionForm() {
         const description = document.getElementById('description').value;
         const address = document.getElementById('address').value;
         const source = document.getElementById('source').value;
-        const series = document.getElementById('series').value;
+        var series = document.getElementById('series').value;
         if (series == 'other') {
-            const series = document.getElementById('newseries').value;
+            series = document.getElementById('newseries').value;
         }
-        const creator = document.getElementById('author').value;
+        var creator = document.getElementById('author').value;
         if (creator == 'other') {
-            const series = document.getElementById('newauthor').value;
+            creator = document.getElementById('newauthor').value;
         }
         const images = document.getElementById('images').value.split(',').map(image => image.trim());
         const latLng = suggestMarker.getLatLng();
